@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <form class='controls'>
+      <label>
+        Layers
+        <input type='range' v-model='layers' step='1' min='1' max='10' /> {{layers}}
+      </label>
+      <label>
+        Text
+        <input type='text' v-model='text' />
+      </label>
+    </form>
+    <Modulo :layersProp='layers' :text='text'/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Modulo from './components/Modulo.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Modulo
+  },
+  data: function() {
+    return {
+      layers: 4,
+      text: 'Hello world'
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  label {
+    display: block;
+  }
 </style>
