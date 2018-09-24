@@ -7,7 +7,7 @@
       <text
       v-for='layer in layers'
       :key='layer'
-      :style='strokeStyle + randomFont()'
+      :style='svgStyle + randomFont()'
       x='0' y='65'>
         {{text}}
       </text>
@@ -21,7 +21,9 @@ export default {
     text: {type: String, default: 'Hello world'},
     layersProp: {default: 4},
     strokeColor: {type: String},
-    strokeOpacity: {}
+    strokeOpacity: {},
+    fillColor: {type: String},
+    fillOpacity: {}
   },
 
   computed: {
@@ -29,8 +31,11 @@ export default {
       return parseInt(this.layersProp)
     },
 
-    strokeStyle() {
-      return `stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};`
+    svgStyle() {
+      return `
+        stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};
+        fill: ${this.hexToRGBA(this.fillColor, this.fillOpacity)};
+      `
     },
   },
 
@@ -66,7 +71,6 @@ export default {
   }
 
   text {
-    fill: rgba(50, 50, 50, 0.3);
     font-size: 4em;
     mix-blend-mode: color-dodge;
     user-select: none;

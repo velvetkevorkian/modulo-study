@@ -20,8 +20,27 @@
         Stroke opacity
         <input type='range' v-model='strokeOpacity' step='0.1' min='0' max='1' /> {{strokeOpacity}}
       </label>
+
+      <label>
+        Fill colour
+        <input type='color' v-model='fillColor' />
+      </label>
+
+      <label>
+        Fill opacity
+        <input type='range' v-model='fillOpacity' step='0.1' min='0' max='1' /> {{fillOpacity}}
+      </label>
     </form>
-    <Modulo :layers-prop='layers' :text='text' :stroke-color='strokeColor' :stroke-opacity='strokeOpacity' />
+
+    <Modulo
+      :layers-prop='layers'
+      :text='text'
+      :stroke-color='strokeColor'
+      :stroke-opacity='strokeOpacity'
+      :fill-color='fillColor'
+      :fill-opacity='fillOpacity'
+    />
+
   </div>
 </template>
 
@@ -38,7 +57,9 @@ export default {
       layers: 4,
       text: 'Hello world',
       strokeColor: '#666',
-      strokeOpacity: 0.5
+      strokeOpacity: 0.5,
+      fillColor: '#323232',
+      fillOpacity: 0.3
     }
   }
 }
