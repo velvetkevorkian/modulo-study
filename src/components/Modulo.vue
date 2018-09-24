@@ -1,13 +1,13 @@
 <template>
   <div class='wrapper'>
-    <svg @click.prevent='fontFaces()'
+    <svg @click.prevent='$forceUpdate()'
     xmlns='http://www.w3.org/2000/svg'
     viewbox='0 0 750 450'
     width='750' height='450'>
       <text
       v-for='layer in layers'
       :key='layer'
-      :style='strokeStyle + layerStyle(layer)'
+      :style='strokeStyle + randomFont()'
       x='0' y='65'>
         {{text}}
       </text>
@@ -34,39 +34,16 @@ export default {
     },
   },
 
-  watch: {
-    layersProp() {
-      this.fontFaces()
-    }
-  },
-
   methods: {
-    layerStyle(layer) {
-      return `font-family: 'modulo-${layer}';`
-    },
-
-    fontFaces() {
+    randomFont() {
       const variants = 'Background Angled Horizontal Inline Outline Regular Rounded Vertical'.split(' ')
       let numbers = []
-      let style = ''
-
       for(let i = 0; i < 21; i++){
         numbers[i] = `00${(i * 2) + 2}`.slice(-2)
       }
-
-      for(let i = 1; i <= this.layers; i ++){
-        let v  = variants[Math.floor(Math.random() * variants.length)]
-        let n = numbers[Math.floor(Math.random() * numbers.length)]
-
-        style +=  `
-          @font-face {
-            font-family: 'modulo-${i}';
-            font-style: normal;
-            font-weight: normal;
-            src: url("/modulo/Modulo${n}-${v}.woff") format("woff");
-          }`
-        }
-        document.querySelector('#modulo-style').innerHTML= style
+      const v  = variants[Math.floor(Math.random() * variants.length)]
+      const n = numbers[Math.floor(Math.random() * numbers.length)]
+      return `font-family: 'Modulo${n}-${v}'`
     },
 
     hexToRGBA(hex, alpha) {
@@ -76,11 +53,7 @@ export default {
 
       return `rgba(${r}, ${g}, ${b}, ${alpha})`
     }
-   },
-
-  mounted() {
-    this.fontFaces()
-  }
+   }
 }
 </script>
 
@@ -98,5 +71,19 @@ export default {
     mix-blend-mode: color-dodge;
     user-select: none;
     stroke-width: 1px;
+  }
+
+  $variants: Background, Angled, Horizontal, Inline, Outline, Regular, Rounded, Vertical;
+  $numbers: '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22', '24', '26', '28', '30', '32', '34', '36', '38', '40', '42';
+
+  @each $n in $numbers {
+    @each $v in $variants {
+      @font-face {
+        font-family: "Modulo#{$n}-#{$v}";
+        font-style: normal;
+        font-weight: normal;
+        src: url("./../assets/modulo/Modulo#{$n}-#{$v}.woff") format("woff");
+      }
+    }
   }
 </style>
