@@ -7,7 +7,7 @@
       <text
       v-for='layer in layers'
       :key='layer'
-      :style='layerStyle(layer)'
+      :style='strokeStyle + layerStyle(layer)'
       x='0' y='65'>
         {{text}}
       </text>
@@ -17,56 +17,70 @@
 
 <script>
 export default {
- props: {
-   text: {type: String, default: 'Hello world'},
-   layersProp: {default: 4}
- },
+  props: {
+    text: {type: String, default: 'Hello world'},
+    layersProp: {default: 4},
+    strokeColor: {type: String},
+    strokeOpacity: {}
+  },
 
- computed: {
-   layers() {
-     return parseInt(this.layersProp)
-   }
- },
+  computed: {
+    layers() {
+      return parseInt(this.layersProp)
+    },
 
- watch: {
-   layersProp() {
-     this.fontFaces()
-   }
- },
+    strokeStyle() {
+      return `stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};`
+    },
+  },
 
- methods: {
-   layerStyle(layer) {
-     return `font-family: 'modulo-${layer}'`
+  watch: {
+    layersProp() {
+      this.fontFaces()
+    }
+  },
+
+  methods: {
+    layerStyle(layer) {
+      return `font-family: 'modulo-${layer}';`
+    },
+
+    fontFaces() {
+      const variants = 'Background Angled Horizontal Inline Outline Regular Rounded Vertical'.split(' ')
+      let numbers = []
+      let style = ''
+
+      for(let i = 0; i < 21; i++){
+        numbers[i] = `00${(i * 2) + 2}`.slice(-2)
+      }
+
+      for(let i = 1; i <= this.layers; i ++){
+        let v  = variants[Math.floor(Math.random() * variants.length)]
+        let n = numbers[Math.floor(Math.random() * numbers.length)]
+
+        style +=  `
+          @font-face {
+            font-family: 'modulo-${i}';
+            font-style: normal;
+            font-weight: normal;
+            src: url("/modulo/Modulo${n}-${v}.woff") format("woff");
+          }`
+        }
+        document.querySelector('#modulo-style').innerHTML= style
+    },
+
+    hexToRGBA(hex, alpha) {
+      const r = parseInt(hex.slice(1, 3), 16),
+            g = parseInt(hex.slice(3, 5), 16),
+            b = parseInt(hex.slice(5, 7), 16)
+
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`
+    }
    },
 
-  fontFaces() {
-    const variants = 'Background Angled Horizontal Inline Outline Regular Rounded Vertical'.split(' ')
-    let numbers = []
-    let style = ''
-
-    for(let i = 0; i < 21; i++){
-      numbers[i] = `00${(i * 2) + 2}`.slice(-2)
-    }
-
-    for(let i = 1; i <= this.layers; i ++){
-      let v  = variants[Math.floor(Math.random() * variants.length)]
-      let n = numbers[Math.floor(Math.random() * numbers.length)]
-
-      style +=  `
-        @font-face {
-          font-family: 'modulo-${i}';
-          font-style: normal;
-          font-weight: normal;
-          src: url("/modulo/Modulo${n}-${v}.woff") format("woff");
-        }`
-      }
-      document.querySelector('#modulo-style').innerHTML= style
-   }
- },
-
- mounted() {
-   this.fontFaces()
- }
+  mounted() {
+    this.fontFaces()
+  }
 }
 </script>
 
@@ -81,8 +95,8 @@ export default {
   text {
     fill: rgba(50, 50, 50, 0.3);
     font-size: 4em;
-    stroke: rgba(50, 50, 50, 1);
     mix-blend-mode: color-dodge;
     user-select: none;
+    stroke-width: 1px;
   }
 </style>
