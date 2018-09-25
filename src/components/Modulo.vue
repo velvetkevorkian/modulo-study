@@ -1,13 +1,13 @@
 <template>
   <div class='wrapper'>
-    <svg @click.prevent='$forceUpdate()'
+    <svg @click.prevent='layers = layersArray()'
     xmlns='http://www.w3.org/2000/svg'
     viewbox='0 0 750 450'
     width='750' height='450'>
       <text
-      v-for='layer in layers'
+      v-for='layer in layerCount'
       :key='layer'
-      :style='svgStyle + randomFont()'
+      :style='svgStyle + layers[layer]'
       x='0' y='65'>
         {{text}}
       </text>
@@ -17,17 +17,23 @@
 
 <script>
 export default {
+  data: function() {
+    return {
+      layers: this.layersArray()
+    }
+  },
+
   props: {
     text: {type: String, default: 'Hello world'},
     layersProp: {default: 4},
-    strokeColor: {type: String},
-    strokeOpacity: {},
-    fillColor: {type: String},
-    fillOpacity: {}
+    strokeColor: {type: String, default: '#666666'},
+    strokeOpacity: {default: 0.5},
+    fillColor: {type: String, default: '#323232'},
+    fillOpacity: {default: 0.3}
   },
 
   computed: {
-    layers() {
+    layerCount() {
       return parseInt(this.layersProp)
     },
 
@@ -36,19 +42,24 @@ export default {
         stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};
         fill: ${this.hexToRGBA(this.fillColor, this.fillOpacity)};
       `
-    },
+    }
   },
 
   methods: {
-    randomFont() {
-      const variants = 'Background Angled Horizontal Inline Outline Regular Rounded Vertical'.split(' ')
+    layersArray() {
+      let layers = []
       let numbers = []
       for(let i = 0; i < 21; i++){
         numbers[i] = `00${(i * 2) + 2}`.slice(-2)
       }
-      const v  = variants[Math.floor(Math.random() * variants.length)]
-      const n = numbers[Math.floor(Math.random() * numbers.length)]
-      return `font-family: 'Modulo${n}-${v}'`
+
+      'Background Angled Horizontal Inline Outline Regular Rounded Vertical'.split(' ').forEach(v => {
+        numbers.forEach(n => {
+          layers.push(`font-family: 'Modulo${n}-${v}'`)
+        })
+      })
+      layers.sort(() => 0.5 - Math.random())
+      return layers
     },
 
     hexToRGBA(hex, alpha) {

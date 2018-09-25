@@ -3,7 +3,7 @@
     <form class='controls'>
       <label>
         Layers
-        <input type='range' v-model='layers' step='1' min='1' max='10' /> {{layers}}
+        <input type='range' v-model='layers' step='1' min='1' max='20' /> {{layers}}
       </label>
 
       <label>
@@ -56,7 +56,7 @@ export default {
     return {
       layers: 4,
       text: 'Hello world',
-      strokeColor: '#666',
+      strokeColor: '#666666',
       strokeOpacity: 0.5,
       fillColor: '#323232',
       fillOpacity: 0.3
