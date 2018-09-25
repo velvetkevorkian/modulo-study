@@ -18,7 +18,7 @@
 
       <label>
         Stroke opacity
-        <input type='range' v-model='strokeOpacity' step='0.1' min='0' max='1' /> {{strokeOpacity}}
+        <input type='range' v-model='strokeOpacity' step='0.05' min='0' max='1' /> {{strokeOpacity}}
       </label>
 
       <label>
@@ -28,7 +28,7 @@
 
       <label>
         Fill opacity
-        <input type='range' v-model='fillOpacity' step='0.1' min='0' max='1' /> {{fillOpacity}}
+        <input type='range' v-model='fillOpacity' step='0.05' min='0' max='1' /> {{fillOpacity}}
       </label>
     </form>
 
