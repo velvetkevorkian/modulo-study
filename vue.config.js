@@ -1,6 +1,6 @@
 module.exports = {
   indexPath: '../index.html',
-  assetsDir: '../dist',
+  assetsDir: './dist',
 
   chainWebpack: config => {
     config.module
