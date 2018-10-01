@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: '/dist',
+  baseUrl: '/labs/modulo-study',
   indexPath: '../index.html',
 
   chainWebpack: config => {
