@@ -25,7 +25,7 @@ export default {
 
   props: {
     text: {type: String, default: 'Hello world'},
-    layersProp: {default: 4},
+    layersProp: {default: '4'},
     strokeColor: {type: String, default: '#666666'},
     strokeOpacity: {default: 0.5},
     fillColor: {type: String, default: '#323232'},
@@ -58,6 +58,9 @@ export default {
           layers.push(`font-family: 'Modulo${n}-${v}'`)
         })
       })
+      // TODO: add entropy
+      layers.sort(() => 0.5 - Math.random())
+      layers.sort(() => 1)
       layers.sort(() => 0.5 - Math.random())
       return layers
     },
