@@ -66,7 +66,24 @@ export default {
 </script>
 
 <style lang="scss">
+  body {
+    margin: 0;
+  }
+
   label {
     display: block;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+  }
+
+  input {
+    margin-left: 1em;
+  }
+
+  form {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.5em;
+    position: absolute;
   }
 </style>

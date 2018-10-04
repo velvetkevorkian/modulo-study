@@ -1,14 +1,14 @@
 <template>
-  <div class='wrapper'>
+  <div class='wrapper' ref='wrapper'>
     <svg @click.prevent='layers = layersArray()'
     xmlns='http://www.w3.org/2000/svg'
-    viewbox='0 0 750 450'
-    width='750' height='450'>
+    :viewbox='viewbox'
+    >
       <text
       v-for='layer in layerCount'
       :key='layer'
       :style='svgStyle + layers[layer]'
-      x='0' y='65'>
+      :x='width/2' :y='height/2 + 40'>
         {{text}}
       </text>
     </svg>
@@ -19,7 +19,9 @@
 export default {
   data: function() {
     return {
-      layers: this.layersArray()
+      layers: this.layersArray(),
+      width: 1000,
+      height: 500
     }
   },
 
@@ -37,6 +39,10 @@ export default {
       return parseInt(this.layersProp)
     },
 
+    viewbox() {
+      return `0 0 ${this.width} ${this.height}`
+    },
+
     svgStyle() {
       return `
         stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};
@@ -45,7 +51,17 @@ export default {
     }
   },
 
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+
   methods: {
+    handleResize() {
+      this.width = this.$refs.wrapper.offsetWidth
+      this.height = this.$refs.wrapper.offsetHeight
+    },
+
     layersArray() {
       let layers = []
       let numbers = []
@@ -80,15 +96,23 @@ export default {
   .wrapper {
     display: flex;
     height: 100vh;
+    width: 95%;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
   }
 
+  svg {
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+  }
+
   text {
     font-size: 4em;
-    mix-blend-mode: color-dodge;
     user-select: none;
     stroke-width: 1px;
+    text-anchor: middle;
   }
 
   $variants: Background, Angled, Horizontal, Inline, Outline, Regular, Rounded, Vertical;
@@ -100,6 +124,7 @@ export default {
         font-family: "Modulo#{$n}-#{$v}";
         font-style: normal;
         font-weight: normal;
+        font-display: block;
         src: url("./../assets/modulo/Modulo#{$n}-#{$v}.woff") format("woff");
       }
     }
