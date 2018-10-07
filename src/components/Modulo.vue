@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce'
+
 export default {
   data: function() {
     return {
@@ -47,12 +49,18 @@ export default {
       return `
         stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};
         fill: ${this.hexToRGBA(this.fillColor, this.fillOpacity)};
+        ${this.fontSize}
       `
+    },
+
+    fontSize() {
+      const size = Math.floor(this.width / (this.text.length + 4))
+      return `font-size: ${size}px;`
     }
   },
 
   mounted() {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', debounce(this.handleResize, 250))
     this.handleResize()
   },
 

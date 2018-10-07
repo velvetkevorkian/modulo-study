@@ -11,6 +11,7 @@
     "deploy": "vue-cli-service build && rsync -avz --delete modulo-study deploy@kylemacquarrie.co.uk:/var/www/macquarrie.systems/shared/public/labs/"
   },
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.5.17"
   },
   "devDependencies": {
