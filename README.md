@@ -28,8 +28,4 @@ TODO:
 - update docs
 - multiline text
 - links back to main site
-- match title format
-- meta desc etc
 - update tests
-- responsive layout?
-- debounce resize
