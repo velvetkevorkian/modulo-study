@@ -8,7 +8,7 @@
 
       <label>
         Text
-        <input type='text' v-model='text' />
+        <textarea v-model='text' />
       </label>
 
       <label>
@@ -57,9 +57,9 @@ export default {
       layers: 4,
       text: 'Hello world',
       strokeColor: '#666666',
-      strokeOpacity: 0.5,
+      strokeOpacity: 0.3,
       fillColor: '#323232',
-      fillOpacity: 0.3
+      fillOpacity: 0.2
     }
   }
 }

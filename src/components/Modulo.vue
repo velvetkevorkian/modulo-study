@@ -9,7 +9,9 @@
       :key='layer'
       :style='svgStyle + layers[layer]'
       :x='width/2' :y='height/2 + 40'>
-        {{text}}
+        <tspan v-for='line in lines' :key='line' x='50%' :dy='fontSize + 10'>
+          {{line}}
+        </tspan>
       </text>
     </svg>
   </div>
@@ -37,6 +39,10 @@ export default {
   },
 
   computed: {
+    lines() {
+      return this.text.split('\n')
+    },
+
     layerCount() {
       return parseInt(this.layersProp)
     },
@@ -49,13 +55,12 @@ export default {
       return `
         stroke: ${this.hexToRGBA(this.strokeColor, this.strokeOpacity)};
         fill: ${this.hexToRGBA(this.fillColor, this.fillOpacity)};
-        ${this.fontSize}
+        font-size: ${this.fontSize}px;
       `
     },
 
     fontSize() {
-      const size = Math.floor(this.width / (this.text.length + 4))
-      return `font-size: ${size}px;`
+      return Math.floor(this.width / (this.text.length + 4))
     }
   },
 
