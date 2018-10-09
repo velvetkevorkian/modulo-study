@@ -8,10 +8,8 @@
       v-for='layer in layerCount'
       :key='layer'
       :style='svgStyle + layers[layer]'
-      :x='width/2' :y='height/2 + 40'>
-        <tspan v-for='line in lines' :key='line' x='50%' :dy='fontSize + 10'>
-          {{line}}
-        </tspan>
+      :x='xpos' :y='ypos'>
+        <tspan v-for='line in lines' :key='line' x='50%' :dy='fontSize + 10'>{{line}}</tspan>
       </text>
     </svg>
   </div>
@@ -39,6 +37,14 @@ export default {
   },
 
   computed: {
+    xpos() {
+      return this.width/2
+    },
+
+    ypos() {
+      return this.height/2 - ((this.fontSize * this.lines.length)/2)
+    },
+
     lines() {
       return this.text.split('\n')
     },
@@ -60,12 +66,16 @@ export default {
     },
 
     fontSize() {
-      return Math.floor(this.width / (this.text.length + 4))
+      let longest = 0
+      this.lines.forEach(l => {
+        if(l.length > longest) {longest = l.length}
+      })
+      return Math.floor(this.width / (longest + 4))
     }
   },
 
   mounted() {
-    window.addEventListener('resize', debounce(this.handleResize, 250))
+    window.addEventListener('resize', debounce(this.handleResize, 200))
     this.handleResize()
   },
 
@@ -87,7 +97,7 @@ export default {
           layers.push(`font-family: 'Modulo${n}-${v}'`)
         })
       })
-      // TODO: add entropy
+
       layers.sort(() => 0.5 - Math.random())
       layers.sort(() => 1)
       layers.sort(() => 0.5 - Math.random())
