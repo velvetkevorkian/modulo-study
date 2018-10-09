@@ -42,7 +42,7 @@ export default {
     },
 
     ypos() {
-      return this.height/2 - ((this.fontSize * this.lines.length)/2)
+      return (this.height/2) - ((this.fontSize * this.lines.length)/2) - (this.fontSize/2)
     },
 
     lines() {
@@ -136,6 +136,7 @@ export default {
     user-select: none;
     stroke-width: 1px;
     text-anchor: middle;
+    line-height: 1;
   }
 
   $variants: Background, Angled, Horizontal, Inline, Outline, Regular, Rounded, Vertical;
