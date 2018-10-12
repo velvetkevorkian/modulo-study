@@ -1,6 +1,9 @@
 <template>
   <div class='wrapper' ref='wrapper'>
-    <svg xmlns='http://www.w3.org/2000/svg' :viewbox='viewbox'>
+    <svg @click.prevent='shuffle()'
+    xmlns='http://www.w3.org/2000/svg'
+    :viewbox='viewbox'
+    >
       <text
       v-for='layer in layerCount'
       :key='layer'

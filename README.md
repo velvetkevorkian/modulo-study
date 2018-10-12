@@ -25,7 +25,3 @@ npm run lint
 ```
 npm run test:unit
 ```
-
-TODO:
-- links back to main site
-- update tests

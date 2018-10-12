@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <button @click.prevent='showControls = !showControls'>
+    <button class='toggle' @click.prevent='showControls = !showControls'>
       {{showControls ? 'Hide' : 'Show'}} controls
     </button>
     <form class='controls' :class='showControls ? "show" : "hide"'>
@@ -55,6 +55,13 @@
       :fill-opacity='fillOpacity'
     />
 
+    <p class='credits'>
+      Click to regenerate. 
+      <a href='/labs'>Back to labs</a>.
+      <a href='https://github.com/velvetkevorkian/modulo-study'>View source on Github</a>.
+      Modulo typeface by <a href='https://www.shinjipons.com/modulo/'>Shinji Pons</a>.
+    </p>
+
   </div>
 </template>
 
@@ -74,7 +81,7 @@ export default {
       strokeOpacity: 0.3,
       fillColor: '#323232',
       fillOpacity: 0.2,
-      showControls: true
+      showControls: false
     }
   }
 }
@@ -86,17 +93,9 @@ export default {
     margin: 0;
   }
 
-  button {
-    margin: 1em;
-  }
-
   fieldset {
     padding-bottom: 1em;
     padding-top: 1em;
-
-    button {
-      margin: 0;
-    }
 
     & + & {
       margin-top: 0.5em;
@@ -129,12 +128,28 @@ export default {
     background: rgba(255, 255, 255, 0.7);
     padding: 0.5em;
     position: absolute;
+    top: 2.5em;
     transform: translateX(0);
     transition: 200ms transform;
 
     &.hide {
       transform: translateX(-100%);
     }
+  }
+
+  .toggle {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+  }
+
+  .credits {
+    bottom: 0.5em;
+    left: 1em;
+    font-size: 0.8em;
+    position: fixed;
+    right: 1em;
+    text-align: center;
   }
 
 
