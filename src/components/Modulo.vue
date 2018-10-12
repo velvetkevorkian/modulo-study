@@ -68,7 +68,7 @@ export default {
     fontSize() {
       let longest = 0
       this.lines.forEach(l => {
-        if(l.length > longest) {longest = l.length}
+        if(l.length > longest) longest = l.length
       })
       return Math.floor(this.width / (longest + 4))
     }

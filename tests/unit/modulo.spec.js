@@ -1,25 +1,39 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import Modulo from '@/components/Modulo.vue'
+import sinon from 'sinon'
 
 context('Modulo.vue', () => {
   let wrapper
-  beforeEach(() => {
-    wrapper = mount(Modulo)
-  })
+
+  before(() => sinon.stub(Modulo.methods, 'handleResize'))
+
+  beforeEach(() => wrapper = mount(Modulo))
 
   describe('computed', () => {
-    it('layersProp', () => {
-      expect(wrapper.vm.layerCount).to.eq(4)
+    it('xpos', () => expect(wrapper.vm.xpos).to.eq(500))
+
+    it('ypos', () => expect(wrapper.vm.ypos).to.eq(184))
+
+    it('lines', () => {
+      wrapper.setProps({text: 'Hello\nworld'})
+      expect(wrapper.vm.lines).to.deep.eq(['Hello', 'world'])
     })
+
+    it('layerCount', () => expect(wrapper.vm.layerCount).to.eq(4))
+
+    it('viewbox', () => expect(wrapper.vm.viewbox).to.eq('0 0 1000 500'))
 
     it('svgStyle', () => {
       const result = `
         stroke: rgba(102, 102, 102, 0.5);
         fill: rgba(50, 50, 50, 0.3);
+        font-size: 66px;
       `
       expect(wrapper.vm.svgStyle).to.eq(result)
     })
+
+    it('fontSize', () => expect(wrapper.vm.fontSize).to.eq(66))
   })
 
   describe('methods', () => {
