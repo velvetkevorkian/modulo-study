@@ -1,9 +1,6 @@
 <template>
   <div class='wrapper' ref='wrapper'>
-    <svg @click.prevent='layers = layersArray()'
-    xmlns='http://www.w3.org/2000/svg'
-    :viewbox='viewbox'
-    >
+    <svg xmlns='http://www.w3.org/2000/svg' :viewbox='viewbox'>
       <text
       v-for='layer in layerCount'
       :key='layer'
@@ -80,6 +77,10 @@ export default {
   },
 
   methods: {
+    shuffle() {
+      this.layers = this.layersArray()
+    },
+
     handleResize() {
       this.width = this.$refs.wrapper.offsetWidth
       this.height = this.$refs.wrapper.offsetHeight

@@ -1,4 +1,5 @@
 # modulo-study
+https://kylemacquarrie.co.uk/labs/modulo-study/
 
 ## Project setup
 ```
@@ -24,8 +25,7 @@ npm run lint
 ```
 npm run test:unit
 ```
+
 TODO:
-- update docs
-- multiline text
 - links back to main site
 - update tests
