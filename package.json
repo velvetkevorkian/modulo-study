@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "vue-cli-service test:unit --watch",
-    "deploy": "vue-cli-service build && rsync -avz --delete modulo-study deploy@kylemacquarrie.co.uk:/var/www/macquarrie.systems/shared/public/labs/"
+    "deploy": "vue-cli-service build && rsync -avz --delete modulo-study $npm_config_labs_deploy_path"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
