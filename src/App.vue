@@ -57,7 +57,6 @@
 
     <p class='credits'>
       Click to regenerate.
-      <a href='/labs'>Back to labs</a>.
       <a href='https://github.com/velvetkevorkian/modulo-study'>View source on Github</a>.
       Modulo typeface by <a href='https://www.shinjipons.com/modulo/'>Shinji Pons</a>.
     </p>

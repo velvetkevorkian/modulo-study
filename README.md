@@ -1,5 +1,5 @@
 # modulo-study
-https://kylemacquarrie.co.uk/labs/modulo-study/
+https://velvetkevorkian.github.io/modulo-study/
 
 ## Project setup
 ```
