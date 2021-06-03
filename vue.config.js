@@ -1,6 +1,6 @@
 module.exports = {
   baseUrl: '',
-  outputDir: 'modulo-study',
+  outputDir: 'docs',
 
   chainWebpack: config => {
     config.module
